@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>corso-sbatch</groupId>
+  <artifactId>sbatch-adv-master</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Spring Batch Advanced Demo</name>
+  <description>Spring Batch Basic Sample</description>
+  <url>http://stefano/spring-batch</url>
+  <packaging>pom</packaging>
+ 
+ <!--  
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+		<spring.batch.version>3.0.0</spring.batch.version>
+		<junit.version>4.11</junit.version>
+	</properties>
+  
+  <dependencies> 
+  
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-core</artifactId>
+			<version>${spring.batch.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-infrastructure</artifactId>
+			<version>${spring.batch.version}</version>
+		</dependency>  
+
+	     <dependency>
+	      <groupId>log4j</groupId>
+	      <artifactId>log4j</artifactId>
+	      <version>1.2.17</version>
+	      <scope>compile</scope>
+	    </dependency>
+	        
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>${junit.version}</version>
+	      <scope>test</scope>
+	    </dependency>
+    
+  </dependencies>
+  -->
+ 
+</project>

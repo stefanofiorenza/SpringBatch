@@ -41,3 +41,31 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+Test/Sbatch-00-Basic/.metadata
+Test/Sbatch-01-Advanced/.metadata
+*.project
+*.classpath
+*/.settings/*
+*.jsdtscope
+*.prefs
+/target/
+Test/Sbatch-00-Basic/sbatch-03-launcherWebQuartz/.gitignore
+Test/Sbatch-00-Basic/sbatch-02-launcherWeb/.gitignore
+Test/Sbatch-00-Basic/sbatch-02-launcherWeb/.settings/org.eclipse.wst.common.project.facet.core.xml
+Test/Sbatch-00-Basic/sbatch-02-launcherWeb/.settings/org.eclipse.wst.jsdt.ui.superType.container
+Test/Sbatch-00-Basic/sbatch-03-launcherWebQuartz/.settings/org.eclipse.wst.common.project.facet.core.xml
+Test/Sbatch-00-Basic/sbatch-03-launcherWebQuartz/.settings/org.eclipse.wst.jsdt.ui.superType.container
+*.component
+*.name
+Test/.metadata/version.ini
+Test/Sbatch-00-Basic/sbatch-01-domain/.gitignore
+Test/.metadata/.plugins/
+Test/.metadata/.lock
+*.class
+*.jar
+Test/.metadata/.mylyn/
+Test/*/target/
+Test/Sbatch-00-Basic/sbatch-02-launcherWeb/target/
+Test/Sbatch-00-Basic/sbatch-03-launcherWebQuartz/target/
+Test/partitioning@keyhole/.gitignore
+Test/Sbatch-00-Basic/sbatch-01-domain/target/

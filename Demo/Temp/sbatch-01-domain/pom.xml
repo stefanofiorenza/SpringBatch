@@ -5,7 +5,7 @@
     <artifactId>sbatch-basic-master</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>sbatch-02-launcherWeb</artifactId>
-  <packaging>war</packaging>
-  <name>sbatch-02-launcherWeb</name>
+  <groupId>corso-sbatch</groupId>
+  <artifactId>sbatch-01-domain</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
 </project>

@@ -5,7 +5,6 @@
     <artifactId>sbatch-basic-master</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>corso-sbatch</groupId>
   <artifactId>sbatch-01-domain</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <name>sbatch-01-domain</name>
 </project>

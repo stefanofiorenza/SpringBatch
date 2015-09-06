@@ -69,3 +69,5 @@ Test/Sbatch-00-Basic/sbatch-02-launcherWeb/target/
 Test/Sbatch-00-Basic/sbatch-03-launcherWebQuartz/target/
 Test/partitioning@keyhole/.gitignore
 Test/Sbatch-00-Basic/sbatch-01-domain/target/
+Test/Sbatch-01-Advanced/sbatch-01-exceptions/target/classes/*.*
+Test/Sbatch-01-Advanced/sbatch-01-exceptions/target/classes/*/*

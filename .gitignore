@@ -69,3 +69,7 @@ Test/Sbatch-00-Basic/sbatch-02-launcherWeb/target/
 Test/Sbatch-00-Basic/sbatch-03-launcherWebQuartz/target/
 Test/partitioning@keyhole/.gitignore
 Test/Sbatch-00-Basic/sbatch-01-domain/target/
+Demo/Test/Sbatch-00-Basic/.metadata/.plugins/org.jboss.tools.common.projecttemplates/templates/jsf-2.1/JSFBlankWithLibs/.settings/org.jboss.tools.jst.web.xml
+.metadata
+.settings
+target

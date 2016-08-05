@@ -85,6 +85,14 @@
 	      <scope>test</scope>
 	    </dependency>
     
+    	<!-- Per esercizio -->
+    	<dependency>
+			<groupId>net.sourceforge.javacsv</groupId>
+			<artifactId>javacsv</artifactId>
+			<version>2.0</version>
+		</dependency>
+    
+    
   </dependencies>  
  
   <modules>
@@ -95,6 +103,6 @@
   	<module>sbatch-03-launcherWebQuartz</module>
   	 -->
   	<module>sbatch-02-status</module>
-  	<module>sbatch-03-exceptions</module>
+  	<module>sbatch-03-retry</module>
   </modules>
 </project>

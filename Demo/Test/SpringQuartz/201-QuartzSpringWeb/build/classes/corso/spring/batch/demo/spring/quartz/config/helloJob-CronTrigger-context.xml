@@ -1,0 +1,29 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="myJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="corso.spring.batch.demo.spring.quartz.job.HelloWorldJob"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="message" value="This is a message from the Spring configuration file!" />
+            </map>
+        </property>
+    </bean>
+
+<!--  CronTrigger che parte subito (0) e si ripete ogni 5 secondi -->
+	<bean id="cronTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerBean"> 
+		<property name="jobDetail" ref="myJob" />
+		<property name="cronExpression" value="0/5 * * * * ?" />
+ 
+	</bean>
+  
+
+    <bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref local="cronTrigger"/>
+            </list>
+        </property>
+    </bean>
+</beans>

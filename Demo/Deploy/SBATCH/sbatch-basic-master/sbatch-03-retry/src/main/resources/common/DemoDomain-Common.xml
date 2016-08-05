@@ -1,0 +1,43 @@
+<beans:beans xmlns="http://www.springframework.org/schema/batch" 
+     xmlns:beans="http://www.springframework.org/schema/beans"
+     xmlns:batch="http://www.springframework.org/schema/batch" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	
+	<beans:bean id="numberServiceBean" class="corso.spring.batch.demo.modulo.retry.job.service.NumberServiceImpl" />
+	<beans:bean id="beanDataHolder" class="corso.spring.batch.demo.modulo.retry.job.service.NumberServiceImpl" />
+
+
+	<!-- Chunk demos -->
+	<beans:bean id="mioReader" class="corso.spring.batch.demo.modulo.retry.job.chuncks.IntegerReader">
+		<beans:property name="numberService" ref="numberServiceBean" />
+  	</beans:bean> 
+  	<beans:bean id="mioWriter" class="corso.spring.batch.demo.modulo.retry.job.chuncks.IntegerWriter" /> 
+	<beans:bean id="mioProcessor" class="corso.spring.batch.demo.modulo.retry.job.chuncks.IntegerProcessor" /> 
+	
+	
+	<!-- Listeners demos -->
+  	<beans:bean id="myStepExecutionListener" class="corso.spring.batch.demo.modulo.retry.listeners.StepExecutionListenerLogImpl" /> 
+	<beans:bean id="mySkipListener" class="corso.spring.batch.demo.modulo.retry.listeners.SkipListenerLogImpl" /> 
+	<beans:bean id="itemProcessListenerLogImpl" class="corso.spring.batch.demo.modulo.retry.listeners.ItemProcessListenerLogImpl" /> 
+	<beans:bean id="itemReadListenerLogImpl" class="corso.spring.batch.demo.modulo.retry.listeners.ItemReadListenerLogImpl" /> 
+	<beans:bean id="itemWriteListenerLogImpl" class="corso.spring.batch.demo.modulo.retry.listeners.ItemWriteListenerLogImpl" /> 
+	<beans:bean id="chunkListenerLogImpl" class="corso.spring.batch.demo.modulo.retry.listeners.ChunkListenerLogImpl" /> 
+	<beans:bean id="myRetryListener" class="corso.spring.batch.demo.modulo.retry.listeners.RetryListenerLogImpl" /> 
+	
+	
+
+
+  	<!-- Tasklet demos -->
+  	<!--  
+  	<beans:bean id="step1Generatore" class="corso.spring.batch.demo.modulo.retry.job.tasklets.Step1GeneratoreTasklet">
+  		<beans:property name="numberService" ref="numberServiceBean" />
+  	</beans:bean> 
+	<beans:bean id="step2Visualizzatore" class="corso.spring.batch.demo.modulo.retry.job.tasklets.Step2VisualizzatoreTasklet" /> 
+	-->
+
+  	
+</beans:beans>

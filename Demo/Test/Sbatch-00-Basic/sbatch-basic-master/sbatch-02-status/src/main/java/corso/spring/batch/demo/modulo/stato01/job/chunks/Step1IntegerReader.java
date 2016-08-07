@@ -8,6 +8,7 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import corso.spring.batch.demo.modulo.stato.job.service.NumberService;
 import corso.spring.batch.demo.modulo.stato.launcher.Consts;
@@ -22,6 +23,7 @@ public class Step1IntegerReader implements ItemReader<Integer>{
 	final static Logger log = Logger.getLogger(Step1IntegerReader.class);
 		
 	
+	private NumberService numberService;
 	
 	@Override
 	public Integer read() throws Exception, UnexpectedInputException, ParseException,
@@ -41,7 +43,7 @@ public class Step1IntegerReader implements ItemReader<Integer>{
 
 
 	
-	private NumberService numberService;
+	
 	
 	public NumberService getNumberService() {
 		return numberService;

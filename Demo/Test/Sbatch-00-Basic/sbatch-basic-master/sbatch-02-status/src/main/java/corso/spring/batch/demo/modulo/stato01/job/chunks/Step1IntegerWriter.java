@@ -37,20 +37,28 @@ public class Step1IntegerWriter implements ItemWriter<Integer>{
 			lastProcessed=new Integer(integer.intValue());
 		}
 		
-		saveInJobExecutionContext(lastProcessed);		
+		//1) Step Level 
+		//saveInStepExecutionContext(lastProcessed);
+		//2) Job Level
+		//saveInJobExecutionContext(lastProcessed);		
+		
 		log.info("committed "+numbers.size()+" records");
 		
 	}
 
 	private void saveInJobExecutionContext(Integer valueToSave){
-		
+				
 		JobExecution jobExecution = stepExecution.getJobExecution();
-		ExecutionContext jobExecutionCtx=jobExecution.getExecutionContext();
+		ExecutionContext jobExecutionCtx=jobExecution.getExecutionContext();		
 		jobExecutionCtx.put(Consts.VALUE_KEY, valueToSave);	
 	}
 	
 	
-	
+	private void saveInStepExecutionContext(Integer valueToSave){
+		
+		ExecutionContext stepExecutionCtx = stepExecution.getExecutionContext();
+		stepExecutionCtx.put(Consts.VALUE_KEY, valueToSave);	
+	}
 	
 
 }

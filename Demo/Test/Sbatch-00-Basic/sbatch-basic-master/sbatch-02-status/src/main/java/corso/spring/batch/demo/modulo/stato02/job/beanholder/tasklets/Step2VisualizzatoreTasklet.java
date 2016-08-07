@@ -22,7 +22,6 @@ public class Step2VisualizzatoreTasklet implements Tasklet{
 	public RepeatStatus execute(StepContribution arg0, ChunkContext chunkContext)
 			throws Exception {
 
-		
 		Integer generated=beanDataHolder.getLargeDataCollection().get(Consts.VALUE_KEY);
 		log.info("[Visualizzatore]: Found: "+generated);
 		return RepeatStatus.FINISHED;

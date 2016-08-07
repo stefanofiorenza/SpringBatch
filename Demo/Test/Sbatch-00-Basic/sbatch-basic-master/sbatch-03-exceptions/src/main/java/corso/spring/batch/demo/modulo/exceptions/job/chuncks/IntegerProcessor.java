@@ -3,30 +3,33 @@ package corso.spring.batch.demo.modulo.exceptions.job.chuncks;
 import org.apache.log4j.Logger;
 import org.springframework.batch.item.ItemProcessor;
 
-import corso.spring.batch.demo.modulo.exceptions.RetryThresholdException;
+import corso.spring.batch.demo.modulo.exceptions.RetryFactorException;
 
 
-public class IntegerProcessor  implements ItemProcessor<Integer, Integer>{
+public class IntegerProcessor extends AbstractChunkProcessing 
+	implements ItemProcessor<Integer, Integer> {
 
 	final static Logger log = Logger.getLogger(IntegerProcessor.class);
-	private int coefficiente=1;
-	private int retryFactor=2;	
-	
+		
 	@Override
 	public Integer process(Integer record) throws Exception {
 
-		int recordValue=record.intValue();
-		log.info("Ricevuto: "+record.intValue());
+		//log.info("PROCESSOR Summary: "+this.stepExecution.getSummary());
 		
-		recordValue=coefficiente+recordValue;
-		log.info("Applicando coefficiente: "+coefficiente +" Nuovo valore: "+recordValue);
+		int recordValue=record.intValue();		
+		log.info("Ricevuto: "+recordValue);
 		
+		//int processedValue=recordValue+1;
+		recordValue++;
+		log.info("After Processor copiato valore: "+recordValue);	
 		
-//		if(recordValue%retryFactor==0){
-//			throw new RetryThresholdException("Generated: "+recordValue+" was divisible for RETRY value: "+retryFactor);
-//		}
+		// commenta/decommenta per ex in Processor
+		//executeDangerouseOperation(recordValue);	
 		
 		return new Integer(recordValue);
 	}
 
+	
+	
+	
 }

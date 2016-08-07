@@ -32,7 +32,10 @@ public class Step1GeneratoreTasklet implements Tasklet{
 		Integer numberToSave=numberService.generateNumber();
 		log.info("Generated: "+numberToSave.intValue());
 		
-		
+		//1) save in Step Level
+		//chunkContext.getStepContext().getStepExecutionContext().put(Consts.VALUE_KEY, numberToSave);
+				
+		//2) save in Job Level
 		StepExecution stepExecution=chunkContext.getStepContext().getStepExecution();
 		saveInJobExecutionContext(stepExecution,numberToSave);
 		

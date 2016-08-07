@@ -1,10 +1,13 @@
 package corso.spring.batch.demo.modulo.stato02.job.beanholder.tasklets;
 
 import org.apache.log4j.Logger;
+import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import corso.spring.batch.demo.modulo.stato.job.service.BeanDataHolder;
 import corso.spring.batch.demo.modulo.stato.job.service.NumberService;
@@ -23,16 +26,15 @@ public class Step1GeneratoreTasklet implements Tasklet{
 	@Override
 	public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)
 			throws Exception {
-		
+				
 		Integer numberToSave=numberService.generateNumber();
-		log.info("Generated: "+numberToSave.intValue());		
-		
+		log.info("Generated: "+numberToSave.intValue());	
+					
+		// save in BeanHolder
 		beanDataHolder.getLargeDataCollection().put(Consts.VALUE_KEY, numberToSave);
 		return RepeatStatus.FINISHED;
 	}
-	
-	
-
+			
 	
 	public NumberService getNumberService() {
 		return numberService;

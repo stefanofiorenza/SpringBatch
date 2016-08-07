@@ -6,65 +6,45 @@ import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
 
-import corso.spring.batch.demo.modulo.exceptions.RetryThresholdException;
+import corso.spring.batch.demo.modulo.exceptions.RetryFactorException;
 import corso.spring.batch.demo.modulo.exceptions.SkipThresholdException;
 import corso.spring.batch.demo.modulo.exceptions.job.service.NumberService;
 
 
-public class IntegerReader implements ItemReader<Integer>{
+public class IntegerReader extends AbstractChunkProcessing  
+		implements ItemReader<Integer>{
 
-	final static Logger log = Logger.getLogger(IntegerReader.class);
-	private int skipThresHold=10;
-	private int retryFactor=10;	
-	private static int contatore=0;	
-	private NumberService numberService;
-	
+			
 	@Override
 	public Integer read() throws Exception, UnexpectedInputException, ParseException,
 			NonTransientResourceException {
 		
-		contatore++;
-		if (contatore==101){
-			return null;
-		}
+		//log.info("READER Summary: "+this.stepExecution.getSummary());	
+				
+		Integer numberToSave=numberService.produceNumber();
+		log.info(" Retrieved: "+numberToSave.intValue());	
 		
-		Integer numberToSave=numberService.generateNumber();
-		if(numberToSave%retryFactor==0){
-			throw new RetryThresholdException("Generated: "+numberToSave+" was divisible for RETRY value: "+retryFactor);
-		}
-	
-		if(numberToSave<skipThresHold){
-			throw new SkipThresholdException("Generated: "+numberToSave+" was lower than SKIP threshold: "+skipThresHold);
-		}
+		//executeDangerouseOperation(numberToSave);		
+		numberService.ackNumber();
 		
-		log.info("Contatore: "+contatore+" Generated: "+numberToSave.intValue());			
 		return numberToSave;
 		
 	}
 
+	final static Logger log = Logger.getLogger(IntegerReader.class);
 	
+	private NumberService numberService;
+		
 	public NumberService getNumberService() {
 		return numberService;
 	}
-
 
 	public void setNumberService(NumberService numberService) {
 		this.numberService = numberService;
 	}
 
-	public int getSkipThresHold() {
-		return skipThresHold;
-	}
 
-	public void setSkipThresHold(int skipThresHold) {
-		this.skipThresHold = skipThresHold;
-	}
 
-	public int getRetryFactor() {
-		return retryFactor;
-	}
 
-	public void setRetryFactor(int retryThresHold) {
-		this.retryFactor = retryThresHold;
-	}
+	
 }

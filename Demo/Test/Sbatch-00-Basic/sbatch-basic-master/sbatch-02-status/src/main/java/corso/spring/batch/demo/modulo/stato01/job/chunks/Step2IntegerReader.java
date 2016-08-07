@@ -39,9 +39,9 @@ public class Step2IntegerReader implements ItemReader<Integer>{
 			return null;
 		}
 		
-		JobExecution jobExecution = stepExecution.getJobExecution();		
-		Integer lastGenerated=(Integer)jobExecution.getExecutionContext().get(Consts.VALUE_KEY);
-		log.info("Last From Step1: "+new Integer(lastGenerated));	
+		
+		Integer lastGenerated=readFromStepExecutionContext();
+		log.info("Last From Step1: "+new Integer(lastGenerated));
 		
 		int newGeneratedInt=numberService.generateNumber().intValue();
 		log.info("Generated From Service: "+new Integer(newGeneratedInt));	
@@ -52,7 +52,16 @@ public class Step2IntegerReader implements ItemReader<Integer>{
 		
 	}
 
-
+	private Integer readFromStepExecutionContext(){		
+		ExecutionContext stepExecutionCtx = stepExecution.getExecutionContext();
+		return (Integer)stepExecutionCtx.get(Consts.VALUE_KEY);	
+	}
+	
+	private Integer readFromJobExecutionContext(){		
+		JobExecution jobExecution = stepExecution.getJobExecution();		
+		return (Integer)jobExecution.getExecutionContext().get(Consts.VALUE_KEY);			
+	}
+	
 
 	
 	private NumberService numberService;

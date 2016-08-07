@@ -27,9 +27,9 @@ public class Step1GeneratoreTasklet implements Tasklet{
 	public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)
 			throws Exception {
 		
-		Integer numberToSave=numberService.generateNumber();
+		Integer numberToSave=numberService.produceNumber();
 		log.info("Generated: "+numberToSave.intValue());
-			
+		
 		StepExecution stepExecution=chunkContext.getStepContext().getStepExecution();
 		saveInJobExecutionContext(stepExecution,numberToSave);
 		return RepeatStatus.FINISHED;

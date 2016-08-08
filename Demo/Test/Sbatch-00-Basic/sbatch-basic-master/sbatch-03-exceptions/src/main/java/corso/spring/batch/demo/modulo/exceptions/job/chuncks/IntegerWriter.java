@@ -28,7 +28,7 @@ public class IntegerWriter extends AbstractChunkProcessing
 		for (Integer integer : numbers){
 			
 			//1) commenta/decommenta per ex in Writer
-			executeDangerouseOperation(integer);	
+			executeDangerousOperation(integer);	
 			
 			log.debug(integer);			
 		}

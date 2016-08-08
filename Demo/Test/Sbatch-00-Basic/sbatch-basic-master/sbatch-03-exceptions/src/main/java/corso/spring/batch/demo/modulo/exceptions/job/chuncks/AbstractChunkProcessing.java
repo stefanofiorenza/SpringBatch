@@ -27,7 +27,7 @@ public abstract class AbstractChunkProcessing {
         this.stepExecution = stepExecution;
     }
 	
-	protected void executeDangerouseOperation(int currNumber){
+	protected void executeDangerousOperation(int currNumber){
 		log.info(this.getClass().getName()+": execute test for n: "+currNumber);
 		evaluateExceptions(currNumber,generateNumber());
 		log.info(this.getClass().getName()+": test passed for n: "+currNumber);

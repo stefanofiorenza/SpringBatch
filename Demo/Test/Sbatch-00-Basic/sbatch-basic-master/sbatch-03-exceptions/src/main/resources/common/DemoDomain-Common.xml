@@ -32,11 +32,10 @@
 
 
   	<!-- Tasklet demos -->
-  	<beans:bean id="step1Generatore" class="corso.spring.batch.demo.modulo.exceptions.job.tasklets.Step1GeneratoreTasklet">
+  	<beans:bean id="exeptionTasklet" class="corso.spring.batch.demo.modulo.exceptions.job.tasklets.ExeptionTasklet">
   		<beans:property name="numberService" ref="numberServiceBean" />
   	</beans:bean> 
-	<beans:bean id="step2Visualizzatore" class="corso.spring.batch.demo.modulo.exceptions.job.tasklets.Step2VisualizzatoreTasklet" /> 
-	
+		
 
   	
 </beans:beans>

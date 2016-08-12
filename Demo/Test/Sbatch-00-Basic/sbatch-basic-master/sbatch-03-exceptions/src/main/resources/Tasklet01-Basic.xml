@@ -13,14 +13,9 @@
 	
 
     <batch:job id="myTaskletSampleJob" job-repository="domainJobRepository" >
-        <batch:step id="step1" next="step2">
-            <batch:tasklet ref="step1Generatore" />                 
-         </batch:step>
-         
-         <batch:step id="step2">
-            <batch:tasklet ref="step2Visualizzatore" />      
-         </batch:step>
-                       
+        <batch:step id="step1">
+            <batch:tasklet ref="exeptionTasklet" />                 
+         </batch:step>                       
     </batch:job>
 
 

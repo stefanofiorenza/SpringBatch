@@ -8,10 +8,11 @@ import org.springframework.batch.item.UnexpectedInputException;
 
 import corso.spring.batch.demo.modulo.exceptions.RetryFactorException;
 import corso.spring.batch.demo.modulo.exceptions.SkipThresholdException;
+import corso.spring.batch.demo.modulo.exceptions.job.AbstractDemoException;
 import corso.spring.batch.demo.modulo.exceptions.job.service.NumberService;
 
 
-public class IntegerReader extends AbstractChunkProcessing  
+public class IntegerReader extends AbstractDemoException  
 		implements ItemReader<Integer>{
 
 			

@@ -8,10 +8,11 @@ import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.item.ItemWriter;
 
 import corso.spring.batch.demo.modulo.exceptions.RetryFactorException;
+import corso.spring.batch.demo.modulo.exceptions.job.AbstractDemoException;
 
 
 
-public class IntegerWriter extends AbstractChunkProcessing 
+public class IntegerWriter extends AbstractDemoException 
 								implements ItemWriter<Integer>{
 
 	final static Logger log = Logger.getLogger(IntegerWriter.class);

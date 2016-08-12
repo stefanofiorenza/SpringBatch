@@ -4,9 +4,10 @@ import org.apache.log4j.Logger;
 import org.springframework.batch.item.ItemProcessor;
 
 import corso.spring.batch.demo.modulo.exceptions.RetryFactorException;
+import corso.spring.batch.demo.modulo.exceptions.job.AbstractDemoException;
 
 
-public class IntegerProcessor extends AbstractChunkProcessing 
+public class IntegerProcessor extends AbstractDemoException 
 	implements ItemProcessor<Integer, Integer> {
 
 	final static Logger log = Logger.getLogger(IntegerProcessor.class);

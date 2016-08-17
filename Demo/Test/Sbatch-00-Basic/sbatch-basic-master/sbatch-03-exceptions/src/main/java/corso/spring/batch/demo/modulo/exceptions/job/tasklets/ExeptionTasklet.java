@@ -10,6 +10,8 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 
+import corso.spring.batch.demo.modulo.exceptions.RetryFactorException;
+import corso.spring.batch.demo.modulo.exceptions.SkipThresholdException;
 import corso.spring.batch.demo.modulo.exceptions.job.AbstractDemoException;
 import corso.spring.batch.demo.modulo.exceptions.job.service.NumberService;
 
@@ -30,35 +32,42 @@ public class ExeptionTasklet extends AbstractDemoException implements Tasklet{
 		
 		
 		currStepExecution=chunkContext.getStepContext().getStepExecution();
-		Integer read=0;
 		
-		while(read!=null){
-			List<Integer> itemsToWrite;
-			List<Integer> chunkOfItems= new ArrayList<>();
-			
-			//1) read chunk
-			for (int j=0; j<COMMIT_INTERVAL; j++){
-				read=read();
-				if(read==null){
-					break;
-				}
-				chunkOfItems.add(read);
-			}
-			
-			//2) process chunk
-			itemsToWrite=process(chunkOfItems);
-			
-			//3) write chunk
-			write(itemsToWrite);
-		}
+		Integer processed;		
+		do {
+			processed=executeChunk();
+		}while(processed!=null);
 		
 		return RepeatStatus.FINISHED;
 	}
 	
 	
+	private Integer executeChunk(){
+			
+		Integer read=0;
+		List<Integer> itemsToWrite;
+		List<Integer> chunkOfItems= new ArrayList<>();
 	
-	private Integer read(){
+		//1) read chunk
+		for (int j=0; j<COMMIT_INTERVAL; j++){			
+				read=read();				
+				if(read==null){
+					return null;
+				}
+				chunkOfItems.add(read);					
+		}
 		
+		//2) process chunk
+		itemsToWrite=process(chunkOfItems);
+		
+		//3) write chunk
+		write(itemsToWrite);
+	
+		return itemsToWrite.size();
+		
+	}
+	
+	private Integer read(){		
 		log.info("READER Summary: "+currStepExecution.getSummary());
 		
 		Integer numberToSave=numberService.produceNumber();

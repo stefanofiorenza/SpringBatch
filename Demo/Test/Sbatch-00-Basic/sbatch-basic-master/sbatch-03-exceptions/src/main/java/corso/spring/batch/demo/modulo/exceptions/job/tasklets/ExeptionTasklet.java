@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.scope.context.ChunkContext;
+import org.springframework.batch.core.step.skip.SkipPolicyFailedException;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 
@@ -22,8 +23,12 @@ public class ExeptionTasklet extends AbstractDemoException implements Tasklet{
 	private NumberService numberService;
 	private final int COUNTER=100;
 	
-	private final int COMMIT_INTERVAL=10;
+	private final int COMMIT_INTERVAL=10;	
+	private final int RETRY_LIMIT=5;
+	private final int SKIP_LIMIT=10;
 	
+	private int retrial=0;
+	private int skipped=0;
 	private StepExecution currStepExecution;
 	
 	@Override
@@ -35,7 +40,11 @@ public class ExeptionTasklet extends AbstractDemoException implements Tasklet{
 		
 		Integer processed;		
 		do {
-			processed=executeChunk();
+			try{
+				processed=executeChunk();
+			}catch (Exception e){
+				return RepeatStatus.FINISHED;
+			}
 		}while(processed!=null);
 		
 		return RepeatStatus.FINISHED;
@@ -44,21 +53,12 @@ public class ExeptionTasklet extends AbstractDemoException implements Tasklet{
 	
 	private Integer executeChunk(){
 			
-		Integer read=0;
-		List<Integer> itemsToWrite;
-		List<Integer> chunkOfItems= new ArrayList<>();
-	
-		//1) read chunk
-		for (int j=0; j<COMMIT_INTERVAL; j++){			
-				read=read();				
-				if(read==null){
-					return null;
-				}
-				chunkOfItems.add(read);					
-		}
 		
+		//1) read chunks
+		List<Integer> chunkOfItems= readChunk();
+			
 		//2) process chunk
-		itemsToWrite=process(chunkOfItems);
+		List<Integer> itemsToWrite=process(chunkOfItems);
 		
 		//3) write chunk
 		write(itemsToWrite);
@@ -66,6 +66,42 @@ public class ExeptionTasklet extends AbstractDemoException implements Tasklet{
 		return itemsToWrite.size();
 		
 	}
+	
+	private List<Integer> readChunk(){
+		Integer read=0;
+		List<Integer> chunkOfItems= new ArrayList<>();
+				
+		//1) read chunk
+		for (int j=0; j<COMMIT_INTERVAL; j++){	
+				try{
+					read=read();			
+					
+				}catch (RetryFactorException e){
+					retrial++;
+					if(retrial<RETRY_LIMIT){
+						read=read();
+					}else{
+						throw new SkipThresholdException("Retry limit exceeded");//not an error, should be skippable
+					}					
+				}catch (SkipThresholdException e){
+					skipped++;
+					if(skipped<SKIP_LIMIT){
+						continue;
+					}else{
+						throw new RuntimeException("Skip limit exceeded");
+					}					
+				}
+				
+				if(read==null){
+					return null;
+				}
+				chunkOfItems.add(read);	
+								
+		}
+		
+		return chunkOfItems;
+	}
+	
 	
 	private Integer read(){		
 		log.info("READER Summary: "+currStepExecution.getSummary());
@@ -85,10 +121,30 @@ public class ExeptionTasklet extends AbstractDemoException implements Tasklet{
 	
 	private List<Integer> process(List<Integer> list){
 		
-	
-		List<Integer> newList= new ArrayList<>();		
+		
+		List<Integer> newList= new ArrayList<>();	
+		Integer processed;
 		for (Integer item : list){
-			newList.add(processSingle(item));
+			try{
+				processed=processSingle(item);	
+				
+			}catch (RetryFactorException e){
+				retrial++;
+				if(retrial<RETRY_LIMIT){
+					processed=processSingle(item);
+				}else{
+					throw new SkipThresholdException("Retry limit exceeded");//not an error, should be skippable
+				}					
+			}catch (SkipThresholdException e){
+				skipped++;
+				if(skipped<SKIP_LIMIT){
+					continue;
+				}else{
+					throw new RuntimeException("Skip limit exceeded");
+				}
+				
+			}
+			newList.add(processed);
 		}
 		return newList;		
 	}
@@ -97,18 +153,40 @@ public class ExeptionTasklet extends AbstractDemoException implements Tasklet{
 		
 		log.info("numbers da salvare in transazione: "+numbers.toString());
 			
-		log.info("WRITER Summary: "+currStepExecution.getSummary());	
-		
-		for (Integer integer : numbers){
+		log.info("WRITER Summary: "+currStepExecution.getSummary());
+						
+		for (Integer item : numbers){
 			
-			//1) commenta/decommenta per ex in Writer
-			//executeDangerousOperation(integer);				
-			log.debug("Write: "+integer);			
+			try{
+				writeSingle(item);		
+				
+			}catch (RetryFactorException e){
+				retrial++;
+				if(retrial<RETRY_LIMIT){
+					writeSingle(item);		
+				}else{
+					throw new SkipThresholdException("Retry limit exceeded");//not an error, should be skippable
+				}					
+			}catch (SkipThresholdException e){
+				skipped++;
+				if(skipped<SKIP_LIMIT){
+					continue;
+				}else{
+					throw new RuntimeException("Skip limit exceeded");
+				}
+				
+			}
+				
 		}
 		log.info("committed "+numbers.size()+" records");
 		
 	}
 	
+	private void writeSingle(Integer item){
+		//1) commenta/decommenta per ex in Writer
+		//executeDangerousOperation(integer);				
+		log.debug("Write: "+item);
+	}
 	
 	/** simply copy it */
 	private Integer processSingle (Integer record){

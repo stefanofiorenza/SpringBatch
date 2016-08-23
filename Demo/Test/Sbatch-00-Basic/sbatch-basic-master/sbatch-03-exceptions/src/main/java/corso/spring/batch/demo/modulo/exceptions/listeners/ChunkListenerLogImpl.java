@@ -10,20 +10,18 @@ public class ChunkListenerLogImpl implements ChunkListener{
 
 	@Override
 	public void beforeChunk(ChunkContext context) {
-		// TODO Auto-generated method stub
-		
+		log.info("beforeChunk");
 	}
 
 	@Override
 	public void afterChunk(ChunkContext context) {
-		// TODO Auto-generated method stub
+		log.info("afterChunk");
 		
 	}
 
 	@Override
 	public void afterChunkError(ChunkContext context) {
-		// TODO Auto-generated method stub
-		
+		log.info("afterChunkError");		
 	}
 
 }

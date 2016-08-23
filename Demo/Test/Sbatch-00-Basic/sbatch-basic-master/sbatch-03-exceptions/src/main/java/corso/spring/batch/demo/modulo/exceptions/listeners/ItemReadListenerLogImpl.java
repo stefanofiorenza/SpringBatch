@@ -9,13 +9,13 @@ public class ItemReadListenerLogImpl implements ItemReadListener<Integer>{
 
 	@Override
 	public void beforeRead() {
-		// TODO Auto-generated method stub
+		log.info("beforeRead");
 		
 	}
 
 	@Override
 	public void afterRead(Integer item) {
-		// TODO Auto-generated method stub
+		log.info("afterRead: read item: "+item);
 		
 	}
 

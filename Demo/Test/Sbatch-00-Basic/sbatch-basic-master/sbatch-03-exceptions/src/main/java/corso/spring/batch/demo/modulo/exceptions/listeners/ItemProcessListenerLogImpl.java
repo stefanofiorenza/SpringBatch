@@ -9,13 +9,13 @@ public class ItemProcessListenerLogImpl implements ItemProcessListener<Integer, 
 
 	@Override
 	public void beforeProcess(Integer item) {
-		// TODO Auto-generated method stub
+		log.info("Before Processing: read item: "+item);
 		
 	}
 
 	@Override
 	public void afterProcess(Integer item, Integer result) {
-		// TODO Auto-generated method stub
+		log.info("afterProcess. Received item: "+item+" Processed into: "+result);
 		
 	}
 

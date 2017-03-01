@@ -1,0 +1,28 @@
+<beans:beans xmlns="http://www.springframework.org/schema/batch" 
+     xmlns:beans="http://www.springframework.org/schema/beans"
+     xmlns:batch="http://www.springframework.org/schema/batch" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/batch 
+           http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+
+	<beans:import resource="Sbatch-common.xml"/>
+	  
+	<beans:import resource="sbatch-cop-impl/Sbatch-COP-01-FlatFiles.xml"/>	   
+	<beans:bean id="mioProcessor" class="corso.spring.batch.demo.cop.processors.BonificoProcessor" />  
+	 
+   	<batch:job id="copDemoSampleJob" job-repository="domainJobRepository" >
+		<batch:step id="chunk1">
+			<batch:tasklet>
+				<batch:chunk 	reader="mioReader" 
+								processor="mioProcessor" 
+								writer="mioWriter"
+								commit-interval="10" 
+				/>
+			</batch:tasklet>
+		</batch:step>	
+	</batch:job>
+	
+</beans:beans>

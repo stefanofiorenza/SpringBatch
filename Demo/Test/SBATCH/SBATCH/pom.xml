@@ -1,0 +1,110 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>corso-sbatch</groupId>
+  <artifactId>SBATCH</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>SBATCH</name>
+  <description>Spring Batch Basic Samples</description>
+  <url>http://stefano/spring-batch</url>
+  <packaging>pom</packaging>
+ 
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+		<spring.batch.version>3.0.4.RELEASE</spring.batch.version>
+		<spring.version>4.1.6.RELEASE</spring.version>	
+		<apache.dbcp.version>1.4</apache.dbcp.version>	
+		<mysql.driver.version>5.1.36</mysql.driver.version>	
+		<junit.version>4.11</junit.version>
+		<version.lombok>1.16.12</version.lombok>		
+	</properties>
+  
+  <dependencies> 
+  
+		  <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+  
+		  <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+  
+		  <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		  <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.driver.version}</version>			
+		</dependency>
+  
+  
+  
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-core</artifactId>
+			<version>${spring.batch.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-infrastructure</artifactId>
+			<version>${spring.batch.version}</version>
+		</dependency>  
+
+	     <dependency>
+	      <groupId>log4j</groupId>
+	      <artifactId>log4j</artifactId>
+	      <version>1.2.17</version>
+	      <scope>compile</scope>
+	    </dependency>
+	    
+	    <dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>${apache.dbcp.version}</version>
+		</dependency>
+	    
+	        
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>${junit.version}</version>
+	      <scope>test</scope>
+	    </dependency>
+    
+    
+    		<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${version.lombok}</version>
+				<scope>provided</scope>
+			</dependency>
+			
+  </dependencies>  
+ 
+  <modules>
+  <!--
+  	<module>SBATCH01-Domain</module>  	
+    	<module>sbatch-02-status</module>
+  	<module>sbatch-03-exceptions</module>
+	-->
+  <module>SBatch100-Domain</module>
+  <module>SBatch130-Status</module>
+  <module>SBatch170-Exceptions</module>
+  <module>SBatch200-COP</module>
+  </modules>
+</project>

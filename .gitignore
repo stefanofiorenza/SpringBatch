@@ -73,3 +73,4 @@ Demo/Test/Sbatch-00-Basic/.metadata/.plugins/org.jboss.tools.common.projecttempl
 .metadata
 .settings
 target
+Docs/*/*.tmp

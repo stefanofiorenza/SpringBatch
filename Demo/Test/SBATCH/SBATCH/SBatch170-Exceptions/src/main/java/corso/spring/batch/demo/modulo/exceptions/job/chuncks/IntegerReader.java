@@ -6,26 +6,25 @@ import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
 
-import corso.spring.batch.demo.modulo.exceptions.RetryFactorException;
-import corso.spring.batch.demo.modulo.exceptions.SkipThresholdException;
-import corso.spring.batch.demo.modulo.exceptions.job.AbstractDemoException;
+import corso.spring.batch.demo.common.exceptions.RetryFactorException;
+import corso.spring.batch.demo.common.exceptions.SkipThresholdException;
+import corso.spring.batch.demo.modulo.exceptions.job.AbstractChunkOrientedDemo;
 import corso.spring.batch.demo.modulo.exceptions.job.service.NumberService;
 
 
-public class IntegerReader extends AbstractDemoException  
-		implements ItemReader<Integer>{
+public class IntegerReader extends AbstractChunkOrientedDemo  implements ItemReader<Integer>{
 
 			
 	@Override
 	public Integer read() throws Exception, UnexpectedInputException, ParseException,
 			NonTransientResourceException {
 		
-		//log.info("READER Summary: "+this.stepExecution.getSummary());	
+		log.info("READER Summary: "+this.stepExecution.getSummary());	
 				
 		Integer numberToSave=numberService.produceNumber();
 		log.info(" Retrieved: "+numberToSave.intValue());	
 		
-		//executeDangerouseOperation(numberToSave);		
+		//executeDangerousOperation(numberToSave);		
 		numberService.ackNumber();
 		
 		return numberToSave;

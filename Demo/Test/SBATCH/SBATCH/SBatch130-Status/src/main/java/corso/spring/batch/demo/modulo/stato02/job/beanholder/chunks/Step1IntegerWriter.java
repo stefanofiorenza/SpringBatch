@@ -10,7 +10,7 @@ import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemWriter;
 
 import corso.spring.batch.demo.modulo.stato.job.service.BeanDataHolder;
-import corso.spring.batch.demo.modulo.stato.launcher.Consts;
+import corso.spring.batch.demo.modulo.stato.job.utils.Consts;
 
 
 

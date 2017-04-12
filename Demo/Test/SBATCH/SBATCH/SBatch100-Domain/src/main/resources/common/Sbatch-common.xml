@@ -32,4 +32,31 @@
     		<beans:property name="jobRepository" ref="domainJobRepository" />
 	</beans:bean>
    
+   
+   <!-- ADVANCED API (NOT MANDATORY) -->
+   
+    <!-- Job Operator Api -->    
+    <bean id="jobRegistry" class="org.springframework.batch.core.configuration.support.MapJobRegistry" />
+    
+     <bean id="jobExplorer" class="org.springframework.batch.core.explore.support.JobExplorerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    
+     <bean id="jobOperator"
+       class="org.springframework.batch.core.launch.support.SimpleJobOperator">
+       <property name="jobExplorer" ref="jobExplorer" />
+       <property name="jobRepository" ref="domainJobRepository" />
+       <property name="jobRegistry" ref="jobRegistry" />
+       <property name="jobLauncher" ref="myJobLauncher" />
+       <!-- 
+           <bean parent="jobLauncher">
+               <property name="taskExecutor">
+                   <bean class="org.springframework.core.task.SimpleAsyncTaskExecutor" />
+               </property>
+           </bean>
+       </property>
+        -->
+   </bean>
+
+  
 </beans:beans>

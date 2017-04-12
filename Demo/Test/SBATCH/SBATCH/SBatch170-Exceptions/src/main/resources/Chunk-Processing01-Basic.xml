@@ -8,7 +8,7 @@
            http://www.springframework.org/schema/batch 
            http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
 
-	<beans:import resource="common/Sbatch-common.xml"/>
+<!-- 	<beans:import resource="common/Sbatch-common.xml"/> -->
 	<beans:import resource="common/DemoDomain-Common.xml"/>
 	  
    <batch:job id="myChunkProcessingSampleJob" 
@@ -24,12 +24,12 @@
 								retry-limit="5">
 					 
 					  <batch:skippable-exception-classes>
-	      				<batch:include class="corso.spring.batch.demo.modulo.exceptions.SkipThresholdException" />
-	      				<batch:include class="corso.spring.batch.demo.modulo.exceptions.RetryFactorException" />	    					    			 	
+	      				<batch:include class="corso.spring.batch.demo.common.exceptions.SkipThresholdException" />
+	      				<batch:include class="corso.spring.batch.demo.common.exceptions.RetryFactorException" />	    					    			 	
 	    			</batch:skippable-exception-classes>
 	    			
 					  <batch:retryable-exception-classes>				    					  
-	      				<batch:include class="corso.spring.batch.demo.modulo.exceptions.RetryFactorException" />
+	      				<batch:include class="corso.spring.batch.demo.common.exceptions.RetryFactorException" />
 	    			</batch:retryable-exception-classes>
 	    			
 					<batch:listeners>

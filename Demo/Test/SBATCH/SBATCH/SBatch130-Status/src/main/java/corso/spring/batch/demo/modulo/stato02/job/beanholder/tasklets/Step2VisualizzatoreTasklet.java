@@ -11,7 +11,7 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 
 import corso.spring.batch.demo.modulo.stato.job.service.BeanDataHolder;
-import corso.spring.batch.demo.modulo.stato.launcher.Consts;
+import corso.spring.batch.demo.modulo.stato.job.utils.Consts;
 
 public class Step2VisualizzatoreTasklet implements Tasklet{
 

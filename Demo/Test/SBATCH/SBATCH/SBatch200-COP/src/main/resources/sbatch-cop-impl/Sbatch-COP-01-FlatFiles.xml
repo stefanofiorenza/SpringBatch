@@ -9,13 +9,7 @@
            http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
            
       
-       <beans:bean id="inputFile" class="org.springframework.core.io.FileSystemResource" scope="step">
-        	<beans:constructor-arg value="#{jobParameters[inputFile]}" />
-    	</beans:bean>
-    	
-       <beans:bean id="outputFile" class="org.springframework.core.io.FileSystemResource" scope="step">
-        	<beans:constructor-arg value="#{jobParameters[outputFile]}" />
-    	</beans:bean>
+  		<beans:import resource="SBatch-COP-00-Common.xml"/>
     
     
         <beans:bean id="bonificoFieldSetMapper" class="corso.spring.batch.demo.cop.flatfiles.BonificoFieldSetMapper" />
@@ -38,14 +32,39 @@
         	<beans:property name="lineMapper" ref="bonificoLineMapper"/>
       </beans:bean>    
       
+      
       <beans:bean id="mioWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
         <beans:property name="resource" ref="outputFile" />
-        <beans:property name="lineAggregator">
-            <beans:bean class="org.springframework.batch.item.file.transform.PassThroughLineAggregator" />
-        </beans:property>
+        <beans:property name="lineAggregator"  ref="passThroughLineAggregator" />   
+        <beans:property name="appendAllowed" value="true"/>    
+        <beans:property name="shouldDeleteIfEmpty" value="true"/>
+        <beans:property name="shouldDeleteIfExists" value="true"/>      
     </beans:bean>
       
-                                
-           
+     
+    
+   <!--  LINE AGGREGATORS (Object to csv line)-->
+   
+   
+     <!-- 1) PassThroughLineAggregator  => bean.toString()  -->
+     <beans:bean id="passThroughLineAggregator" class="org.springframework.batch.item.file.transform.PassThroughLineAggregator" />
+     
+     <!-- 2) FormatterLineAggregator  => String.format (fieldExtractor Obj[]) -->
+     <beans:bean id="formattedLineAggregator" class="org.springframework.batch.item.file.transform.FormatterLineAggregator">
+		<beans:property name="fieldExtractor" ref="bonificoFieldExtractor"/>
+		<beans:property name="format" value="%s, %s, %s, %s, %s, %s,%s, %s, %s"/>
+	</beans:bean>
+	
+	
+	<!--  FIELD EXTRACTORS => bean to Object[] (fields values)-->
+	
+		<!--2.1)  BeanWrapperFieldExtractor => (bean props with reflection)-->
+		<beans:bean id="beanWrapperFieldExtractor" class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+					<beans:property name="names" value="orderId,ibanPayer,ibanBeneficiary,payer,beneficiary,amount,date,description,referenceNumber"/>
+		</beans:bean>
+		
+		<!-- 2.2) BonificoFieldExtractor => (custom impl)-->
+		<beans:bean id="bonificoFieldExtractor" class="corso.spring.batch.demo.cop.flatfiles.BonificoFieldExtractor" />
+	
            
 </beans:beans>

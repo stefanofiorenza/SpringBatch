@@ -11,7 +11,7 @@ import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
 
 import corso.spring.batch.demo.modulo.stato.job.service.NumberService;
-import corso.spring.batch.demo.modulo.stato.launcher.Consts;
+import corso.spring.batch.demo.modulo.stato.job.utils.Consts;
 
 
 
@@ -40,7 +40,7 @@ public class Step2IntegerReader implements ItemReader<Integer>{
 		}
 		
 		
-		Integer lastGenerated=readFromStepExecutionContext();
+		Integer lastGenerated=readFromJobExecutionContext();
 		log.info("Last From Step1: "+new Integer(lastGenerated));
 		
 		int newGeneratedInt=numberService.generateNumber().intValue();

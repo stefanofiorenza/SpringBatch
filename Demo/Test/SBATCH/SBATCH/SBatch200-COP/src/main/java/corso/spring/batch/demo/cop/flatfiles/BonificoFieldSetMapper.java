@@ -5,7 +5,8 @@ import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.validation.BindException;
 
 
-import corso.spring.batch.demo.cop.dto.BonificoDto;
+
+import corso.spring.batch.demo.commons.dto.BonificoDto;
 
 public class BonificoFieldSetMapper  implements FieldSetMapper<BonificoDto>{
 

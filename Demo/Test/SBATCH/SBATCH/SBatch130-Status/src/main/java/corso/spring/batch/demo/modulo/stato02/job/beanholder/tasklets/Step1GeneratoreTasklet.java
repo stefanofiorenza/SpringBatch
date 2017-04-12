@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import corso.spring.batch.demo.modulo.stato.job.service.BeanDataHolder;
 import corso.spring.batch.demo.modulo.stato.job.service.NumberService;
-import corso.spring.batch.demo.modulo.stato.launcher.Consts;
+import corso.spring.batch.demo.modulo.stato.job.utils.Consts;
 
 public class Step1GeneratoreTasklet implements Tasklet{
 	

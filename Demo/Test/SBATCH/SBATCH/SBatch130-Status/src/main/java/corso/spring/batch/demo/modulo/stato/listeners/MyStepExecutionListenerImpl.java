@@ -8,7 +8,7 @@ import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.ExecutionContext;
 
 import corso.spring.batch.demo.modulo.stato.job.service.NumberService;
-import corso.spring.batch.demo.modulo.stato.launcher.Consts;
+import corso.spring.batch.demo.modulo.stato.job.utils.Consts;
 
 public class MyStepExecutionListenerImpl implements StepExecutionListener{
 

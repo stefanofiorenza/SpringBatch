@@ -17,12 +17,12 @@ public class DemoRetryLauncher {
 			// Configs.CHUNCK_PROCESSING_01_BASIC;
 			
 			//1) Chunk Processing
-		//	String nomeJob=Configs.CHUNCK_JOB_NAME;
-		//	String configurationFilePath=Configs.CHUNCK_PROCESSING_01_BASIC;
+			String nomeJob=Configs.CHUNCK_JOB_NAME;
+			String configurationFilePath=Configs.CHUNCK_PROCESSING_01_BASIC;
 			
 			//2) Tasklet
-			String nomeJob=Configs.TASKET_JOB_NAME;
-			String configurationFilePath=Configs.TASKLET_01_BASIC;			
+//			String nomeJob=Configs.TASKET_JOB_NAME;
+//			String configurationFilePath=Configs.TASKLET_01_BASIC;			
 			
 			
 			

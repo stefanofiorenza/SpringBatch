@@ -7,4 +7,13 @@
   </parent>
   <artifactId>SBatch170-Exceptions</artifactId>
   <name>SBatch170-Exceptions</name>
+  
+    <dependencies>
+  	<dependency>
+  		<groupId>corso-sbatch</groupId>
+  		<artifactId>SBatch-000-Commons</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
+  
 </project>

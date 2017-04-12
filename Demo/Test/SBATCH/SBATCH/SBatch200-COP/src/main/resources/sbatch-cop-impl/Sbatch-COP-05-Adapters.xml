@@ -1,0 +1,32 @@
+<beans:beans xmlns="http://www.springframework.org/schema/batch" 
+     xmlns:beans="http://www.springframework.org/schema/beans"
+     xmlns:batch="http://www.springframework.org/schema/batch" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/batch 
+           http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+           
+      
+     <beans:import resource="SBatch-COP-00-Common.xml"/>
+                
+	 <beans:bean id="mioReader" class="org.springframework.batch.item.adapter.ItemReaderAdapter">
+	    <beans:property name="targetObject" ref="bonificoServiceImpl" />
+	    <beans:property name="targetMethod" value="getBonificiLastDay" />
+	</beans:bean>    
+  
+  	<beans:bean id="mioProcessor" class="org.springframework.batch.item.adapter.ItemProcessorAdapter">
+    	<beans:property name="targetObject" ref="bonificoServiceImpl" />
+    	<beans:property name="targetMethod" value="processBonifico" />
+	</beans:bean>
+  
+        
+	<beans:bean id="mioWriter" class="org.springframework.batch.item.adapter.ItemWriterAdapter">
+    	<beans:property name="targetObject" ref="bonificoServiceImpl" />
+    	<beans:property name="targetMethod" value="updateBonifici" />
+	</beans:bean>
+                 
+           
+           
+</beans:beans>

@@ -1,0 +1,31 @@
+<beans:beans xmlns="http://www.springframework.org/schema/batch" 
+     xmlns:beans="http://www.springframework.org/schema/beans"
+     xmlns:batch="http://www.springframework.org/schema/batch" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<beans:import resource="classpath:config/Sbatch-common.xml"/>
+
+	<!-- Chunk processing demos -->
+	<beans:bean id="mioReader" class="corso.spring.batch.demo.modulo.basic.job.io.UserReader" /> 
+	<beans:bean id="mioProcessor" class="corso.spring.batch.demo.modulo.basic.job.io.UserProcessor" /> 
+	<beans:bean id="mioWriter" class="corso.spring.batch.demo.modulo.basic.job.io.UserWriter" /> 
+	
+  	<!-- Tasklet demos -->
+  	<beans:bean id="helloTasklet" class="corso.spring.batch.demo.modulo.basic.job.tasklets.HelloWorldTasklet" /> 
+	<beans:bean id="secondaTasklet" class="corso.spring.batch.demo.modulo.basic.job.tasklets.SecondaTasklet" /> 
+	<beans:bean id="ultimaTasklet" class="corso.spring.batch.demo.modulo.basic.job.tasklets.UltimaTasklet" /> 
+	
+  	
+  	<!-- Listeners demos -->
+  	<beans:bean id="logStepExecutionListener" class="corso.spring.batch.demo.modulo.basic.listeners.StepExecutionListenerLogImpl" /> 
+	<beans:bean id="logItemReadListener" class="corso.spring.batch.demo.modulo.basic.listeners.ItemReadListenerLogImpl" /> 
+	<beans:bean id="logItemProcessListener" class="corso.spring.batch.demo.modulo.basic.listeners.ItemProcessListenerLogImpl" /> 
+	<beans:bean id="logItemWriteListener" class="corso.spring.batch.demo.modulo.basic.listeners.ItemWriteListenerLogImpl" /> 
+	<beans:bean id="logChunkListener" class="corso.spring.batch.demo.modulo.basic.listeners.ChunkListenerLogImpl" /> 
+	<beans:bean id="logSkipListener" class="corso.spring.batch.demo.modulo.basic.listeners.SkipListenerLogImpl" /> 
+  	
+  	
+</beans:beans>

@@ -1,0 +1,49 @@
+<beans:beans xmlns="http://www.springframework.org/schema/batch" 
+     xmlns:beans="http://www.springframework.org/schema/beans"
+     xmlns:batch="http://www.springframework.org/schema/batch" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/batch 
+           http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+
+	
+	<beans:import resource="common/SB130-Common.xml"/>
+	 
+	 <!-- Chunk Oriented Beans --> 
+		<!-- 2) BeanHolder -->
+		<beans:bean id="step1Reader" class="corso.spring.batch.demo.modulo.stato02.job.beanholder.chunks.Step1IntegerReader">
+			<beans:property name="numberService" ref="numberServiceBean" />
+	  	</beans:bean> 
+	  	<beans:bean id="step1Writer" class="corso.spring.batch.demo.modulo.stato02.job.beanholder.chunks.Step1IntegerWriter">
+	  		<beans:property name="beanDataHolder" ref="beanDataHolder" />
+	  	</beans:bean> 
+		<beans:bean id="step2Reader" class="corso.spring.batch.demo.modulo.stato02.job.beanholder.chunks.Step2IntegerReader">
+			<beans:property name="numberService" ref="numberServiceBean" />
+	  			<beans:property name="beanDataHolder" ref="beanDataHolder" />
+	  	</beans:bean> 
+	  	<beans:bean id="step2Writer" class="corso.spring.batch.demo.modulo.stato02.job.beanholder.chunks.Step2IntegerWriter" /> 
+	
+	
+   <batch:job id="SB130-COPBeanHolder-Job" job-repository="domainJobRepository" >
+		<batch:step id="SB130-COPBeanHolder-Job-S1" next="SB130-COPBeanHolder-Job-S2">
+			<batch:tasklet>
+				<batch:chunk 	reader="step1Reader" 
+								writer="step1Writer"
+								commit-interval="10"																 
+				/>
+			</batch:tasklet>
+		</batch:step>
+		
+			<batch:step id="SB130-COPBeanHolder-Job-S2" >
+			<batch:tasklet>
+				<batch:chunk 	reader="step2Reader" 
+								writer="step2Writer"
+								commit-interval="10"																 
+				/>
+			</batch:tasklet>
+		</batch:step>
+			
+	</batch:job>
+</beans:beans>

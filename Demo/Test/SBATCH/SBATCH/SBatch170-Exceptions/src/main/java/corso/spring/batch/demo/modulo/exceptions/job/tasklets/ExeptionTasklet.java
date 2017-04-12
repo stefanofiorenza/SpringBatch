@@ -11,12 +11,12 @@ import org.springframework.batch.core.step.skip.SkipPolicyFailedException;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 
-import corso.spring.batch.demo.modulo.exceptions.RetryFactorException;
-import corso.spring.batch.demo.modulo.exceptions.SkipThresholdException;
-import corso.spring.batch.demo.modulo.exceptions.job.AbstractDemoException;
+import corso.spring.batch.demo.common.exceptions.RetryFactorException;
+import corso.spring.batch.demo.common.exceptions.SkipThresholdException;
+import corso.spring.batch.demo.modulo.exceptions.job.AbstractChunkOrientedDemo;
 import corso.spring.batch.demo.modulo.exceptions.job.service.NumberService;
 
-public class ExeptionTasklet extends AbstractDemoException implements Tasklet{
+public class ExeptionTasklet extends AbstractChunkOrientedDemo implements Tasklet{
 	
 	final static Logger log = Logger.getLogger(ExeptionTasklet.class);
 

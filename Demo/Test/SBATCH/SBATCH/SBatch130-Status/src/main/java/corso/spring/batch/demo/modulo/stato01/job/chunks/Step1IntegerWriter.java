@@ -9,7 +9,7 @@ import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemWriter;
 
-import corso.spring.batch.demo.modulo.stato.launcher.Consts;
+import corso.spring.batch.demo.modulo.stato.job.utils.Consts;
 
 
 
@@ -39,8 +39,9 @@ public class Step1IntegerWriter implements ItemWriter<Integer>{
 		
 		//1) Step Level 
 		//saveInStepExecutionContext(lastProcessed);
+		
 		//2) Job Level
-		//saveInJobExecutionContext(lastProcessed);		
+		saveInJobExecutionContext(lastProcessed);		
 		
 		log.info("committed "+numbers.size()+" records");
 		

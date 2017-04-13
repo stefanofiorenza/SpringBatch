@@ -1,0 +1,55 @@
+<beans:beans xmlns="http://www.springframework.org/schema/batch" 
+     xmlns:beans="http://www.springframework.org/schema/beans"
+     xmlns:batch="http://www.springframework.org/schema/batch" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/batch 
+           http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+
+<!-- 	<beans:import resource="common/Sbatch-common.xml"/> -->
+	<beans:import resource="common/SBatch170-Exceptions-Common.xml"/>
+	  
+   <batch:job id="SB170-COP-Exceptions-Job" job-repository="domainJobRepository" restartable="true">
+		<batch:step id="SB170-COP-Exceptions-Job-S1" >
+			<batch:tasklet>
+				<batch:chunk 							
+								reader="mioReader" 
+								writer="mioWriter"
+								processor="mioProcessor"
+								commit-interval="10"
+								skip-limit="10"								
+								retry-limit="5">
+					 
+					  <batch:skippable-exception-classes>
+	      				<batch:include class="corso.spring.batch.demo.common.exceptions.SkipThresholdException" />
+	      				<batch:include class="corso.spring.batch.demo.common.exceptions.RetryFactorException" />	    					    			 	
+	    			</batch:skippable-exception-classes>
+	    			
+					  <batch:retryable-exception-classes>				    					  
+	      				<batch:include class="corso.spring.batch.demo.common.exceptions.RetryFactorException" />
+	    			</batch:retryable-exception-classes>
+	    			
+					<batch:listeners>
+            			
+            		<!--  
+            		<batch:listener ref="mySkipListener"/>
+            		<batch:listener ref="itemReadListenerLogImpl"/>
+            		<batch:listener ref="itemProcessListenerLogImpl"/>            		
+            		<batch:listener ref="itemWriteListenerLogImpl"/>
+            		<batch:listener ref="chunkListenerLogImpl"/>
+            		-->
+            		</batch:listeners> 	
+            		
+            		<!--  
+	            	<batch:retry-listeners>           
+						<batch:listener ref="myRetryListener" />
+					</batch:retry-listeners>  
+					 -->
+					 				
+   		 		</batch:chunk>	   		 		
+			</batch:tasklet>
+		</batch:step>	
+	</batch:job>
+</beans:beans>

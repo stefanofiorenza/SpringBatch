@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.batch.core.launch.support.CommandLineJobRunner;
 
+import corso.spring.batch.demo.modulo.exceptions.test.Configs;
+
 public class DemoRetryLauncher {
 
 	/**

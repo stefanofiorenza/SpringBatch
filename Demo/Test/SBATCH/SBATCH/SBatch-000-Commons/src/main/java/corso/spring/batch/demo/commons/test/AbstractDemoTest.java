@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobInstance;
@@ -49,19 +50,30 @@ public class AbstractDemoTest {
 		private int restartLimit=3;
 		
 		
-		protected void testTemplate(String configFile, String jobName, 
+		protected void testTemplate(String configFile, String jobName,
+				int expectedJobExecutions, int expectedStepExecutions, BatchStatus expectedBatchStatus) throws Exception{			
+			
+			testTemplate(configFile, jobName,"",true, expectedJobExecutions,  expectedStepExecutions, expectedBatchStatus);
+		}
+		
+		protected void testTemplate(String configFile, String jobName, String params,boolean autoRetryOnFailure, 
 				int expectedJobExecutions, int expectedStepExecutions, BatchStatus expectedBatchStatus) throws Exception{
 			
 			loadContext(configFile);		
 			
-			String params="dataStart="+new Date();
+			if(params==null){
+				params="";				
+			}
+			params=params+",dataStart="+new Date();
 			Long jobExecutionId=jobOperator.start(jobName, params);		
 		
 			updateDomainObjectsByJobExecutionId(jobExecutionId);
 			
 			waitUntilJobExecutionIsOver();
 			
-			restartIfNotCompleted(jobExecutionId,restartLimit);		
+			if(autoRetryOnFailure){
+				restartIfNotCompleted(jobExecutionId,restartLimit);	
+			}				
 					
 			domainObjAssertions(expectedJobExecutions ,expectedStepExecutions,expectedBatchStatus);	
 			

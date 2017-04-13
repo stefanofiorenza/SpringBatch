@@ -22,7 +22,7 @@ public class IntegerReader extends AbstractChunkOrientedDemo  implements ItemRea
 		log.info("READER Summary: "+this.stepExecution.getSummary());	
 				
 		Integer numberToSave=numberService.produceNumber();
-		log.info(" Retrieved: "+numberToSave.intValue());	
+		log.info(" Retrieved: "+numberToSave);	
 		
 		//executeDangerousOperation(numberToSave);		
 		numberService.ackNumber();

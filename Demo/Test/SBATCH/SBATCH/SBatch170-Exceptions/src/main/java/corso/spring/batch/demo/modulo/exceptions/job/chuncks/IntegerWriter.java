@@ -29,7 +29,7 @@ public class IntegerWriter extends AbstractChunkOrientedDemo
 		for (Integer integer : numbers){
 			
 			//1) commenta/decommenta per ex in Writer
-			executeDangerousOperation(integer);	
+			//executeDangerousOperation(integer);	
 			
 			log.debug(integer);			
 		}

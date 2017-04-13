@@ -18,7 +18,7 @@
         <File>${logDir}/${demoName}.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <FileNamePattern>${demoName}.%d{yyyy-MM-dd}.log</FileNamePattern> 
+            <FileNamePattern>${logDir}/${demoName}.%d{yyyy-MM-dd}.log</FileNamePattern> 
             <!-- keep 30 days' worth of history -->
             <maxHistory>5</maxHistory>            
         </rollingPolicy>

@@ -204,14 +204,12 @@
   <modules>
   	<module>SBatch-000-Commons</module>
   	<module>SBatch-100-Basics</module>
-	<module>Sbatch010-Commons</module>
-  	<!--  <module>SBatch100-Domain</module>-->
-  	<module>SBatch130-Status</module>
+	<module>SBatch-120-Domain</module>
+	<module>SBatch130-Status</module>
   	<module>SBatch170-Exceptions</module>
   	<module>SBatch200-COP</module>
-  	<module>SBatchLab200-COP</module>
+  	<!--LABS -->
   	<module>SBatchLab100-Basic</module>
-
-  	<module>SBatch-120-Domain</module>
+  	<module>SBatchLab200-COP</module>
   </modules>
 </project>

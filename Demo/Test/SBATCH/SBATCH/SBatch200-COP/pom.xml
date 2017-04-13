@@ -9,15 +9,6 @@
   <artifactId>SBatch200-COP</artifactId>
   <name>SBatch200-COP</name>
   
-<!--   <properties>    
-  	<version.lombok>1.14.8</version.lombok>
-  	<version.jackson>2.6.3</version.jackson>
-  	<version.commons.lang>3.4</version.commons.lang>
-	<version.commons.io>2.4</version.commons.io>
-	<version.commons.io>2.4</version.commons.io>
-  	<version.httpclient>4.4.1</version.httpclient>
-  </properties> -->
-  
   
   <dependencies>
   		    
@@ -26,14 +17,6 @@
   		<artifactId>SBatch-000-Commons</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
- 	
- 	<dependency>
-  		<groupId>corso-sbatch</groupId>
-  		<artifactId>SBatch170-Exceptions</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-		
-		
 		
   </dependencies>
 </project>

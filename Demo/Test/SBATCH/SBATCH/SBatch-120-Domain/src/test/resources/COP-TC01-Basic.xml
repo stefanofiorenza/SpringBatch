@@ -8,8 +8,8 @@
            http://www.springframework.org/schema/batch 
            http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
 
-	<!-- <beans:import resource="classpath:config/Sbatch-common.xml"/> -->
-	<beans:import resource="common/SB100-Common.xml"/>
+	<!-- <beans:import resource="classpath:config/Sbatch-common-demo.xml"/> -->
+	<beans:import resource="classpath:common/SB100-Common.xml"/>
 	  
    <batch:job id="SB120-COP-Basic-JobName" job-repository="domainJobRepository" >
 		<batch:step id="SB120-COP-Basic-S1">			

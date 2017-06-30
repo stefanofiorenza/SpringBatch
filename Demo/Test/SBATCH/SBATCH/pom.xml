@@ -210,6 +210,6 @@
   	<module>SBatch200-COP</module>
   	<!--LABS -->
   	<module>SBatchLab100-Basic</module>
-  	<module>SBatchLab200-COP</module>
+  	<module>SBatchLab200-COP</module>  	
   </modules>
 </project>

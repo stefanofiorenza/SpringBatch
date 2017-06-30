@@ -1,23 +1,22 @@
 package corso.spring.batch.demo.cop.processors;
 
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.batch.item.ItemProcessor;
 
-import corso.spring.batch.demo.common.exceptions.ExceptionDemoUtils;
 import corso.spring.batch.demo.commons.dto.BonificoDto;
+import corso.spring.batch.demo.cop.common.AbstractCommonItemChunkExcManager;
 import corso.spring.batch.demo.cop.common.BonificoDtoUtils;
 
 @Slf4j
-public class BonificoProcessor implements ItemProcessor<BonificoDto,BonificoDto>{
-
+public class BonificoProcessor extends AbstractCommonItemChunkExcManager implements ItemProcessor<BonificoDto,BonificoDto> {
+	
 		
 	@Override
 	public BonificoDto process(BonificoDto item) throws Exception {
 				
-		//ExceptionDemoUtils.evaluateExceptions(item.getOrderId(), this.getClass());	
-		
+	
+		evaluateExceptions(item);
 		
 		//1) Fault tolerant copy of immutable input
 		//return updateAndReturnNew(item);

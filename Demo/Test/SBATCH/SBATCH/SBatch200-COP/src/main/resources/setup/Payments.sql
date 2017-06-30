@@ -9,6 +9,19 @@ create table Payments (
 	description TEXT,
 	referenceNumber VARCHAR(50)
 );
+
+create table Payments_Processed (
+	orderId VARCHAR(40),
+	payer VARCHAR(50),
+	ibanPayer VARCHAR(50),
+	beneficiary VARCHAR(50),
+	ibanBeneficiary VARCHAR(50),
+	amount DECIMAL(6,2),
+	date DATE,
+	description TEXT,
+	referenceNumber VARCHAR(50)
+);
+
 insert into Payments (orderId, payer, ibanPayer, beneficiary, ibanBeneficiary, amount, date, description, referenceNumber) values ('0483ff26-cfc4-464f-92b2-89ad3a3213e4', 'Charles Vasquez', 'SK80 3313 6171 5920 8620 0352', 'Joseph Harvey', 'NO46 0737 8281 902', 903.69, '2016-03-11', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien.', '5048378207751440');
 insert into Payments (orderId, payer, ibanPayer, beneficiary, ibanBeneficiary, amount, date, description, referenceNumber) values ('ee14842f-b413-4102-9c19-bd44a05ad6d7', 'Julie King', 'FR84 0728 7982 174U IKOL GREF S76', 'Paula Martinez', 'KZ18 132S JM4H FQKQ KWIS', 590.78, '2016-06-19', 'Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros. Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat. In congue. Etiam justo.', '3551535439383631');
 insert into Payments (orderId, payer, ibanPayer, beneficiary, ibanBeneficiary, amount, date, description, referenceNumber) values ('338151f0-01ff-4011-8959-12b74545bf99', 'James Reid', 'DK10 4564 0181 3993 08', 'William Evans', 'LI53 2889 1HMI X2ZU NTYS H', 400.37, '2016-10-12', 'Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo. Aliquam quis turpis eget elit sodales scelerisque.', '201898399768070');

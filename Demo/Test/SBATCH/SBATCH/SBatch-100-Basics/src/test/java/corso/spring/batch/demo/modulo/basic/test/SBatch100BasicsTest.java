@@ -16,9 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class SBatch100BasicsTest {
 
 	AbstractApplicationContext context;
-	
-	
-	
+		
 	@Test 
 	public void demoBasicTasklet() throws Exception{
 		testTemplate(Configs.TASKLET_CFG_01_BASIC, Configs.TASKET_JOB_NAME_BASIC);		

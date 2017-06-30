@@ -8,41 +8,42 @@
            http://www.springframework.org/schema/batch 
            http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
            
-  	<beans:import resource="common/SBatch200-COP-Common.xml"/> 
-      
-     <beans:bean id="copDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<beans:property name="url" value="jdbc:mysql://localhost:3306/sbatch3-labs" />
-		<beans:property name="username" value="root" />
-		<beans:property name="password" value="stefan0" />
-	</beans:bean>
-      
-   	<beans:bean id="bonificoPaymentByAmountSetter" class="corso.spring.batch.demo.cop.jdbc.BonificoQueryByAmountPsSetter" >
-		<beans:property name="amount" value="100.0" /> <!--  value="#{jobParameters[amount]}"/> -->
-	</beans:bean>
-	
-	<beans:bean id="bonificoInsertPsSetter" class="corso.spring.batch.demo.cop.jdbc.BonificoInsertPsSetter" />
-	
-	<beans:bean id="bonificoRowMapper" class="corso.spring.batch.demo.cop.jdbc.BonificoRowMapper"/>
-      
-    <beans:bean id="mioReader"
-        class="org.springframework.batch.item.database.JdbcCursorItemReader">
-        <beans:property name="dataSource" ref="copDataSource" />
-        <beans:property name="sql" value="select * from payments where amount > ?" />
-        <beans:property name="rowMapper" ref="bonificoRowMapper" />
-        <beans:property name="preparedStatementSetter" ref="bonificoPaymentByAmountSetter" />
-    </beans:bean>
+	<beans:import resource="common/SBatch200-COP-JDBC-Common.xml"/>
+   
+                    
+       <beans:bean id="bonificoPaymentByAmountSetter" class="corso.spring.batch.demo.cop.jdbc.BonificoQueryByAmountPsSetter" >
+			<beans:property name="amount" value="100.0" /> <!--  value="#{jobParameters[amount]}"/> -->
+		</beans:bean>
+			
+	    <beans:bean id="mioReader" class="org.springframework.batch.item.database.JdbcCursorItemReader">
+	        <beans:property name="dataSource" ref="dataSource" />
+	        <beans:property name="sql" value="select * from payments where amount > ?" />
+	        <beans:property name="rowMapper" ref="bonificoRowMapper" />
+	        <beans:property name="preparedStatementSetter" ref="bonificoPaymentByAmountSetter" />
+	    </beans:bean>
     
-    <beans:bean id="mioProcessor" class="corso.spring.batch.demo.cop.processors.BonificoProcessor" />
-           
-    <beans:bean id="mioWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter">
-		<beans:property name="dataSource" ref="copDataSource"/>
+     <!--   
+     <beans:bean id="mioReader" class="corso.spring.batch.demo.cop.jdbc.wrappers.JdbcItemReaderWrapper" > 
+     <beans:bean id="mioReader" class="corso.spring.batch.demo.cop.jdbc.wrappers.JdbcItemReaderWrapper" >    	
+    	<beans:property name="delegate" ref="jdbcCursorItemReader"/>
+    </beans:bean>  
+       
+     
+       <beans:bean id="mioWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter">
+		<beans:property name="dataSource" ref="dataSource"/>
 		<beans:property name="sql" 
 		value="insert into Payments_Processed (orderId, payer, ibanPayer, beneficiary, ibanBeneficiary, amount, date, description, referenceNumber) values (?,?,?,?,?,?,?,?,?)" />
 		<beans:property name="itemPreparedStatementSetter" ref="bonificoInsertPsSetter"/>
 	</beans:bean>
+     
+      
+   	<beans:bean id="bonificoPaymentByAmountSetter" class="corso.spring.batch.demo.cop.jdbc.BonificoQueryByAmountPsSetter" >
+		<beans:property name="amount" value="100.0" />  value="#{jobParameters[amount]}"/>
+	</beans:bean>
 	
-                 
+	<beans:bean id="bonificoInsertPsSetter" class="corso.spring.batch.demo.cop.jdbc.BonificoInsertPsSetter" />
+	
+	<beans:bean id="bonificoRowMapper" class="corso.spring.batch.demo.cop.jdbc.BonificoRowMapper"/> -->        
            
            
 </beans:beans>

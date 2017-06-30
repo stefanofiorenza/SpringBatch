@@ -11,7 +11,7 @@
            http://www.springframework.org/schema/batch 
            http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
 
-	<beans:import resource="classpath:config/Sbatch-common.xml"/>
+	<beans:import resource="classpath:config/Sbatch-common-app.xml"/>
 	
     <beans:bean id="inputFile" class="org.springframework.core.io.FileSystemResource" scope="step">
        	<beans:constructor-arg value="#{jobParameters[inputFile]}" />
@@ -20,33 +20,13 @@
      <beans:bean id="outputFile" class="org.springframework.core.io.FileSystemResource" scope="step">
        	<beans:constructor-arg value="#{jobParameters[outputFile]}" />
    	</beans:bean>
-    
+      
     	
 	<!-- Necessario per contesto di business services -->
 	<context:annotation-config />
     <context:component-scan 
 		base-package="corso.spring.batch.demo.cop.services" />
-		
-	<!-- READERS DEMO -->
-		<!-- <beans:import resource="sbatch-cop-impl/Sbatch-COP-01-FlatFiles.xml"/>	 -->
-		<!-- <beans:import resource="sbatch-cop-impl/Sbatch-COP-02-Xml.xml"/>	-->  
-		<!-- <beans:import resource="sbatch-cop-impl/Sbatch-COP-03-Jdbc-Cursor.xml"/> -->
-		<!-- <beans:import resource="sbatch-cop-impl/Sbatch-COP-04-Jdbc-Paging.xml"/> -->	
-		
-	<!-- ADAPTERS DEMO --> <!-- da commentare mioProcessor successivo -->
-		<!--<beans:import resource="sbatch-cop-impl/Sbatch-COP-05-Adapters.xml"/>-->
-			
-	<!-- PROCESSORS DEMO -->
-		<!-- DEFAULT PROCESSOR (FOR READERS DEMO) -->	
-		<!--<beans:bean id="mioProcessor" class="corso.spring.batch.demo.cop.processors.BonificoProcessor" />  -->
-				
-		<!-- PROCESSOR CHAINED PROCESSORS DEMO -->	
-		<!--<beans:import resource="sbatch-cop-impl/Sbatch-COP-06-ChainedProcessors.xml"/>  -->
-		
-	<!-- CUSTOM READERS -->
-		<!--<beans:import resource="sbatch-cop-impl/Sbatch-COP-07-StreamReader.xml"/>  -->
-		<!--<beans:import resource="sbatch-cop-impl/Sbatch-COP-07-Streams.xml"/>  -->
-	 
+		 
    	<batch:job id="SBatch200-COP-Basic-Job" job-repository="domainJobRepository" >
 		<batch:step id="SBatch200-COP-Basic-S1">
 			<batch:tasklet>
@@ -59,7 +39,7 @@
 		</batch:step>	
 	</batch:job>
 	
-	 	<batch:job id="SBatch200-COP-Exceptions-Job" job-repository="domainJobRepository" restartable="true">
+	 <batch:job id="SBatch200-COP-Exceptions-Job" job-repository="domainJobRepository" restartable="true">
 			<batch:step id="SBatch200-COP-Exceptions-S" >
 				<batch:tasklet>
 					<batch:chunk reader="mioReader" 
@@ -72,14 +52,19 @@
 									
 			    	<batch:skippable-exception-classes>
 	      				<batch:include class="corso.spring.batch.demo.common.exceptions.SkipThresholdException" />
-	      				<!--  <batch:include class="corso.spring.batch.demo.common.exceptions.RetryFactorException" />		-->		    			 	
+	      				<!--  <batch:include class="corso.spring.batch.demo.common.exceptions.RetryFactorException" />		-->	
+	      				<!--<batch:include class="corso.spring.batch.demo.common.exceptions.NoRollbackException" />	-->	    			 	
 	    			</batch:skippable-exception-classes>
 	    			
-					  <batch:retryable-exception-classes>				    					  
+					 <batch:retryable-exception-classes>				    					  
 	      				<batch:include class="corso.spring.batch.demo.common.exceptions.RetryFactorException" />
-	    			</batch:retryable-exception-classes>
-	    			
+	      				
+	    			</batch:retryable-exception-classes>	    			
 	    		</batch:chunk>
+	    		
+	    		 <batch:no-rollback-exception-classes>
+	    			 	<batch:include class="corso.spring.batch.demo.common.exceptions.NoRollbackException" />
+	    		</batch:no-rollback-exception-classes>
 			</batch:tasklet>
 		</batch:step>	
 	</batch:job>

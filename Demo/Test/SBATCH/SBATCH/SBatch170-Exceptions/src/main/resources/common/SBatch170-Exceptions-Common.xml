@@ -6,7 +6,7 @@
            http://www.springframework.org/schema/beans 
            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-	<beans:import resource="classpath:config/Sbatch-common.xml"/>
+	<beans:import resource="classpath:config/Sbatch-common-demo.xml"/>
 	
 	<beans:bean id="numberServiceBean" class="corso.spring.batch.demo.modulo.exceptions.job.service.NumberServiceImpl" />
 	<beans:bean id="beanDataHolder" class="corso.spring.batch.demo.modulo.exceptions.job.service.NumberServiceImpl" />

@@ -74,3 +74,4 @@ Demo/Test/Sbatch-00-Basic/.metadata/.plugins/org.jboss.tools.common.projecttempl
 .settings
 target
 Docs/*/*.tmp
+Docs/Demo/SBATCH/SBatch-Avanzato/Res-SBATCH/**

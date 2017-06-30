@@ -9,7 +9,7 @@
            http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
 
 <!-- 	<beans:import resource="common/Sbatch-common.xml"/> -->
-	<beans:import resource="common/SB100-Common.xml"/>
+		<beans:import resource="classpath:common/SB100-Common.xml"/>
 	
 
     <batch:job id="SB100-BasicTasklet-Job" job-repository="domainJobRepository" >

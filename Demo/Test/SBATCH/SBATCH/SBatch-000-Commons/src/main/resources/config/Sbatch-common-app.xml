@@ -8,18 +8,14 @@
            http://www.springframework.org/schema/batch 
            http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
 
-	<beans:import resource="common/Sbatch-common.xml"/>
-	<beans:import resource="common/DemoDomain-Common.xml"/>
-	  
-   <batch:job id="myChunkProcessingSampleJob" job-repository="domainJobRepository" >
-		<batch:step id="chunk1">
-			<batch:tasklet>
-				<batch:chunk 	reader="mioReader" 
-								processor="mioProcessor" 
-								writer="mioWriter"
-								commit-interval="10" 
-				/>
-			</batch:tasklet>
-		</batch:step>	
-	</batch:job>
+
+ 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<beans:property name="url" value="jdbc:mysql://localhost:3306/sbatch3-app" />
+		<beans:property name="username" value="root" />
+		<beans:property name="password" value="stefan0" />
+	</beans:bean> 
+
+	<beans:import resource="Sbatch-common.xml"/>
+  
 </beans:beans>

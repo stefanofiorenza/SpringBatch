@@ -10,7 +10,7 @@
            
       
     <!--  <beans:import resource="SBatch-COP-00-Common.xml"/> -->
-    <beans:import resource="common/SBatch200-COP-Common.xml"/>           
+  	<beans:import resource="common/SBatch200-COP-Common.xml"/>      
         
      <beans:bean id="bonificoMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">     
         <beans:property name="aliases">

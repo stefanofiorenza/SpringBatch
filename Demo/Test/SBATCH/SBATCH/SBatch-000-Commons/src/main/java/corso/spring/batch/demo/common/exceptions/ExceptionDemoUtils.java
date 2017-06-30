@@ -8,8 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ExceptionDemoUtils {
 
 		//1) Probability Exc Settings
-		private static int retryFactor=5; 
-		private static int skipThresHold=2; 
+		private static int retryFactor=5;  		// rnd(100) multiplo di retry factor = eccezione
+		private static int skipThresHold=0;  	// rnd(100) inferiore a skipThresHold = eccezione
 		
 		//2) generator Settings
 		private static int min=1;
@@ -35,7 +35,9 @@ public class ExceptionDemoUtils {
 			int probNumber=generateNumber();
 			
 			if(probNumber%retryFactor==0){
-				log.info(clazz.getName()+": test for n: "+itemId+" was failing RetryEx");
+				log.info(clazz.getName()+": test for Item n: "+itemId+
+						" was failing for RetryException on generated n: "+probNumber);
+				
 				throw new RetryFactorException("Generated: "+probNumber+
 						" was divisible for RETRY value: "+retryFactor);
 			}

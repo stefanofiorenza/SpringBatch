@@ -17,19 +17,23 @@ public class SBatch200CopTest extends AbstractDemoTest{
 	
 	
 	@Test
-	public void testCopy_Xml()throws Exception{			
+	public void testCopy_Xml() throws Exception{			
 		String jobParameters="inputFile="+Paths.XML_IN+",outputFile="+ Paths.XML_OUT;
 		testTemplate(Configs.CFG_02_XML, Configs.JOB_01_BASIC, jobParameters,false,1, 1, BatchStatus.COMPLETED);
 	}
 	
 	@Test
-	public void testCopy_Jdbc_Cursor()throws Exception{			
-		testTemplate(Configs.CFG_03_JDBC_CURSOR, Configs.JOB_01_BASIC,1, 1, BatchStatus.COMPLETED);
+	public void testCopy_Jdbc_Cursor() throws Exception{			
+		testTemplate(Configs.CFG_03_JDBC_CURSOR, Configs.JOB_01_BASIC,
+				SBatch200CommonTestUtils.DEFAULT_JDBC_JOB_PARAMS, false, 
+					1, 1, BatchStatus.COMPLETED);
 	}
 	
 	@Test
 	public void testCopy_Jdbc_Pagination()throws Exception{				
-		testTemplate(Configs.CFG_04_JDBC_PAGINATION, Configs.JOB_01_BASIC,1, 1, BatchStatus.COMPLETED);
+		testTemplate(Configs.CFG_04_JDBC_PAGINATION, Configs.JOB_01_BASIC,
+				SBatch200CommonTestUtils.DEFAULT_JDBC_JOB_PARAMS, false,
+					1, 1, BatchStatus.COMPLETED);
 	}
 	
 	@Test
@@ -42,5 +46,23 @@ public class SBatch200CopTest extends AbstractDemoTest{
 		String jobParameters="inputFile="+Paths.CSV_IN+",outputFile="+ Paths.CSV_OUT;
 		testTemplate(Configs.CFG_06_CHAINED_PROCESSORS, Configs.JOB_01_BASIC,jobParameters,false,1, 1, BatchStatus.COMPLETED);
 	}
+	
+//	@Test
+//	public void testCopy_Transactions_Exc_Retry_Processor()throws Exception{			
+//		String jobParams=toJobParams(true, false, false, false, false, false);
+//		testTemplate(Configs.CFG_07_TRANSACTIONS, Configs.JOB_02_EXC,jobParams,false,1, 1, BatchStatus.COMPLETED);
+//	}
+		
+//	@Test
+//	public void testCopy_Transactions_Exc_Retry_Writer()throws Exception{			
+//		String jobParams=toJobParams(false, false, false, true, false, false);
+//		testTemplate(Configs.CFG_06_CHAINED_PROCESSORS, Configs.JOB_02_EXC,jobParams,false,1, 1, BatchStatus.COMPLETED);
+//	}
+	
+	
+	
+	
+	
+	
 	
 }

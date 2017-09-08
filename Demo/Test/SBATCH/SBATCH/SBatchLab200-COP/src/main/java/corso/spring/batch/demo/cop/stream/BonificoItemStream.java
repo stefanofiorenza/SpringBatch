@@ -60,7 +60,7 @@ public class BonificoItemStream implements ItemStreamReader<List<BonificoDto>>{
 	public List<BonificoDto> read() throws Exception, UnexpectedInputException,
 			ParseException, NonTransientResourceException {
 		HttpGet httpGetRequest = new HttpGet(httpConfig.getBonificoUri());
-		return executeRequestOnServiceApi(httpGetRequest);			
+		return executeRequestOnServiceApi(httpGetRequest,1);			
 	
 	}
 	
@@ -96,20 +96,16 @@ public class BonificoItemStream implements ItemStreamReader<List<BonificoDto>>{
 			stopWatch.start();			
 			httpResponse = executeHttpRequest(httpGetRequest, reqCounter);	
 			stopWatch.stop();
-			log.info("Response data completed after {} millis ",stopWatch.getTime());
-						
-			return mapIntoBonifico(httpResponse);			
-			
-		
+			log.info("Response data completed after {} millis ",stopWatch.getTime());							
 			
 		}catch (ConnectionPoolTimeoutException e){			
-			handleConnectionTimeout(httpGetRequest, reqCounter);
-			
+			handleConnectionTimeout(httpGetRequest, reqCounter);			
 		}	
 		
 		finally{			
 			IOUtils.closeQuietly(httpResponse);			
 		}
+		return mapIntoBonifico(httpResponse);
 		
 	}
 

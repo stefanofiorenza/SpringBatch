@@ -8,4 +8,11 @@
   <artifactId>SBatchLab200-COP</artifactId>
   <name>SBatchLab200-COP</name>
   <description>SBatchLab200-COP</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>corso-sbatch</groupId>
+  		<artifactId>SBatch-000-Commons</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

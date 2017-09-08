@@ -30,7 +30,7 @@ public class SbatchDaoConfig {
 	
 	
 	@Bean
-	public JdbcTemplate  jdbcTemplate(){ //needed for 
+	public JdbcTemplate  jdbcTemplate(){ //needed for JobExplorer
 		return new JdbcTemplate(sbatchDatasource());
 	}
 	

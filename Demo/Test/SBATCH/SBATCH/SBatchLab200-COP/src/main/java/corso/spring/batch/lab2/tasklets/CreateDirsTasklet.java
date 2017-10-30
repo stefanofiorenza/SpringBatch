@@ -1,4 +1,4 @@
-package corso.spring.batch.lab1.job.tasklets;
+package corso.spring.batch.lab2.tasklets;
 
 import java.io.File;
 
@@ -9,8 +9,9 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 
-import corso.spring.batch.lab1.utils.Consts;
-import corso.spring.batch.lab1.utils.LabUtils;
+import corso.spring.batch.lab2.utils.Consts;
+import corso.spring.batch.lab2.utils.LabUtils;
+
 
 @Slf4j
 public class CreateDirsTasklet implements Tasklet{

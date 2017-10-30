@@ -20,4 +20,8 @@ public class BonificoDto {
 	
 	private boolean processed=false;
 	
+	public String getIbanState(){
+		return ibanPayer.substring(0,2);
+	}
+	
 }

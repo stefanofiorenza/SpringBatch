@@ -4,7 +4,9 @@
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="
            http://www.springframework.org/schema/beans 
-           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+ 		   http://www.springframework.org/schema/batch 
+           http://www.springframework.org/schema/batch/spring-batch.xsd">
 
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -26,11 +28,45 @@
 	</beans:bean>
 
 
-  	<!-- Tasklet demos -->
+  	<!-- Tasklet beans -->
   	<beans:bean id="createDirsTasklet" class="corso.spring.batch.lab1.job.tasklets.CreateDirsTasklet" /> 
-  	<beans:bean id="customerProcessorTasklet" class="corso.spring.batch.lab1.job.tasklets.CustomerProcessorTasklet" />
+  	<beans:bean id="stateDirsTasklet" class="corso.spring.batch.lab1.job.tasklets.StateDirsTasklet" />
  
+ 	<!-- Tasklet beans -->
+ 	<beans:bean id="bonificoReader" class="corso.spring.batch.lab1.job.chunks.BonificoCsvReader" /> 
+  	<beans:bean id="bonificoProcessor" class="corso.spring.batch.lab1.job.chunks.BonificoProcessor" />
+  	<beans:bean id="bonificoWriter" class="corso.spring.batch.lab1.job.chunks.BonificoCsvWriter" />
+  	
 	
+  	 <batch:job id="SB-Lab100" job-repository="domainJobRepository" >
+        <batch:step id="SB-Lab100-S1" next="SB-Lab100-S2">
+            <batch:tasklet ref="createDirsTasklet" />            
+         </batch:step>
+         
+         <batch:step id="SB-Lab100-S2" next="SB-Lab100-S3">
+            <batch:tasklet ref="stateDirsTasklet" />           
+         </batch:step>
+        
+      	<batch:step id="SB-Lab100-S3">
+           <batch:tasklet>
+				<batch:chunk 	reader="bonificoReader" 
+								processor="bonificoProcessor" 
+								writer="bonificoWriter"
+								commit-interval="10" 
+								skip-limit="10"								
+								retry-limit="5">
+								
+				<batch:skippable-exception-classes>      							    			 	
+    			</batch:skippable-exception-classes>
+    			
+				  <batch:retryable-exception-classes>				    					  
+      			</batch:retryable-exception-classes>								
+				</batch:chunk>
+			</batch:tasklet>	                  
+         </batch:step>  
+                      
+    </batch:job>
+
   	
   	
   	

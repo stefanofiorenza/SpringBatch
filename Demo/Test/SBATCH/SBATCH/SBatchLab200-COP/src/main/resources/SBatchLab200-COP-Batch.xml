@@ -1,0 +1,106 @@
+<beans:beans xmlns="http://www.springframework.org/schema/batch" 
+     xmlns:beans="http://www.springframework.org/schema/beans"
+     xmlns:batch="http://www.springframework.org/schema/batch" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+ 		   http://www.springframework.org/schema/batch 
+           http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<beans:property name="url" value="jdbc:mysql://localhost:3306/sbatch3-labs" />
+		<beans:property name="username" value="root" />
+		<beans:property name="password" value="stefan0" />
+	</beans:bean> 
+
+	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" lazy-init="true">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+	
+	<!-- JobRepository Spring Batch Environment --> 
+	<batch:job-repository id="domainJobRepository" data-source="dataSource" transaction-manager="transactionManager" />
+    
+    <!-- Job Launcher -->
+	<beans:bean id="myJobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+    		<beans:property name="jobRepository" ref="domainJobRepository" />
+	</beans:bean>
+
+
+  	<!-- Tasklet beans -->
+  	<beans:bean id="createDirsTasklet" class="corso.spring.batch.lab2.tasklets.CreateDirsTasklet" /> 
+  	<beans:bean id="stateDirsTasklet" class="corso.spring.batch.lab2.tasklets.StateDirsTasklet" />
+ 
+ 	
+
+   	<!-- FlatFiles Reader -->
+   	
+   <beans:bean id="bonificoFieldSetMapper" class="corso.spring.batch.lab2.flatfiles.BonificoFieldSetMapper" />
+   
+    <beans:bean id="bonificoLineTokenizer" class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer" >          
+	    <beans:property name="names" value="orderId,payer,ibanPayer,beneficiary,ibanBeneficiary,amount,date,description,referenceNumber" />
+	    <beans:property name="delimiter"  value="," />                
+    </beans:bean>
+         	
+    <beans:bean id="bonificoLineMapper" class="org.springframework.batch.item.file.mapping.DefaultLineMapper">  
+           <beans:property name="lineTokenizer" ref="bonificoLineTokenizer"/>
+           <beans:property name="fieldSetMapper" ref="bonificoFieldSetMapper"/>                 
+    </beans:bean>
+
+     <beans:bean id="bonificoReader" class="org.springframework.batch.item.file.FlatFileItemReader">    
+         	<beans:property name="resource" value="classpath:in/Payments.csv" />             
+         	<beans:property name="linesToSkip" value="1" /> <!-- Skip headers -->
+       		<beans:property name="lineMapper" ref="bonificoLineMapper"/>
+     </beans:bean>    
+      
+      
+      <!-- Processor -->
+     <beans:bean id="bonificoProcessor" class="corso.spring.batch.lab2.processors.BonificoProcessor" />
+
+  	
+  	  <!-- JDBC WRITER  -->
+     
+     <beans:bean id="bonificoInsertPsSetter" class="corso.spring.batch.lab2.jdbc.BonificoInsertPsSetter" />
+     	 
+    <beans:bean id="bonificoWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter">
+		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="sql" 
+		value="insert into Payments_Processed (orderId, payer, ibanPayer, beneficiary, ibanBeneficiary, amount, date, description, referenceNumber) values (?,?,?,?,?,?,?,?,?)" />
+		<beans:property name="itemPreparedStatementSetter" ref="bonificoInsertPsSetter"/>
+	</beans:bean>
+  	
+	
+  	 <batch:job id="SB-Lab200" job-repository="domainJobRepository" >
+        <batch:step id="SB-Lab200-S1" next="SB-Lab200-S2">
+            <batch:tasklet ref="createDirsTasklet" />            
+         </batch:step>
+         
+         <batch:step id="SB-Lab200-S2" next="SB-Lab200-S3">
+            <batch:tasklet ref="stateDirsTasklet" />           
+         </batch:step>
+        
+      	<batch:step id="SB-Lab200-S3">
+           <batch:tasklet>
+				<batch:chunk 	reader="bonificoReader" 
+								processor="bonificoProcessor" 
+								writer="bonificoWriter"
+								commit-interval="10" 
+								skip-limit="10"								
+								retry-limit="5">
+								
+				<batch:skippable-exception-classes>      							    			 	
+    			</batch:skippable-exception-classes>
+    			
+				  <batch:retryable-exception-classes>				    					  
+      			</batch:retryable-exception-classes>								
+				</batch:chunk>
+			</batch:tasklet>	                  
+         </batch:step>  
+                      
+    </batch:job>
+
+  	
+  	
+  	
+</beans:beans>
